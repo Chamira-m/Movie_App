@@ -14,20 +14,38 @@ const Search = () => {
     data: movies,
     loading,
     error,
-    refetch,
+    refetch: loadMovies,
     reset,
-  } = useFetch(() => fetchMovies({ query: searchQuery }));
+  } = useFetch(() => fetchMovies({ query: searchQuery }), false);
   useEffect(() => {
-    updateSearchCount(searchQuery, movies[0]);
-    const timeoutID = setTimeout(async () => {
+    const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
-        await refetch();
+        await loadMovies();
       } else {
         reset();
       }
     }, 500);
-    return () => clearTimeout(timeoutID);
+
+    return () => clearTimeout(timeoutId);
   }, [searchQuery]);
+
+  // Trigger updateSearchCount only when movies actually updates
+  // useEffect(() => {
+  //   if (searchQuery.trim() && movies?.length > 0) {
+  //     updateSearchCount(searchQuery, movies[0]);
+  //   }
+  // }, [movies, searchQuery]);
+
+  useEffect(() => {
+    if (!searchQuery.trim() || !movies?.length) return;
+
+    const timeoutId = setTimeout(() => {
+      updateSearchCount(searchQuery, movies[0]);
+    }, 500); // waits for user to pause
+
+    return () => clearTimeout(timeoutId);
+  }, [movies, searchQuery]);
+
   return (
     <View className="flex-1 bg-primary">
       <Image
