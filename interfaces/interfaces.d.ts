@@ -23,6 +23,12 @@ interface TrendingMovie {
   poster_url: string;
 }
 
+interface SavedMovie {
+  movie_id: number;
+  title: string;
+  poster_url: string;
+}
+
 interface MovieDetails {
   adult: boolean;
   backdrop_path: string | null;
@@ -74,4 +80,24 @@ interface MovieDetails {
 interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
+}
+
+interface User {
+  $id: string;
+  userId: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  bio?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+interface AuthUser {
+  $id: string;
+  name: string;
+  email: string;
+  emailVerification: boolean;
+  status: boolean;
+  registration: string;
 }

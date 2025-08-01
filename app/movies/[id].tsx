@@ -94,6 +94,14 @@ const MovieDetails = () => {
             }
           />
         </View>
+        <TouchableOpacity className="mx-5 mt-5 bg-light-300 rounded-lg py-3.5 flex flex-row items-center justify-center z-50">
+          <Image
+            source={icons.save}
+            className="size-5 mr-1 mt-0.5 rotate-180"
+            tintColor="#fff"
+          />
+          <Text className="text-white font-semibold text-base">Save</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           className="absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
           onPress={router.back}
